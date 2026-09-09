@@ -208,6 +208,22 @@ button,input,select{font:inherit}a{color:inherit;text-decoration:none}
 .mistakes-master.is-empty .mistake-master-list{display:none}
 @media(max-width:620px){.mistake-input-row{grid-template-columns:1fr}.add-mistake{width:100%}}
 
+
+/* ===== V7.2 QA FIXES ===== */
+.mistake-bank-group{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+.mistake-bank-group summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center;font-weight:950}
+.mistake-bank-group summary::-webkit-details-marker{display:none}
+.mistake-bank-group summary b{font-size:11px;color:var(--red);background:#fff0f1;border-radius:999px;padding:6px 9px}
+.mistake-bank-items{display:grid;gap:8px;padding:0 12px 12px}
+.mistake-master-item{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.bank-remove-mistake{border:0;background:#fff0f1;color:var(--red);width:30px;height:30px;border-radius:9px;font-size:18px;font-weight:950;cursor:pointer;flex:0 0 auto}
+.add-mistake:active,.bank-remove-mistake:active,.remove-mistake:active{transform:scale(.97)}
+.today-task button:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:620px){
+  .exam-grid{grid-template-columns:1fr!important}
+  .mistake-bank-group summary{align-items:flex-start}
+}
+
 </style>
 </head>
 
@@ -475,7 +491,7 @@ button,input,select{font:inherit}a{color:inherit;text-decoration:none}
 
     $('revisionList').innerHTML=CHAPTERS.map((name,i)=>{
       const c=state.chapterData[i];
-      return `<article class="card" id="chapter-card-${i}">
+      return `<article class="card" id="revision-card-${i}">
         <button type="button" class="accordion-toggle" aria-expanded="false">
           <span class="accordion-left"><span class="card-title">${name}</span><span class="sub" style="display:block">Revision rounds</span></span>
           <span class="accordion-right"><span class="chevron">⌄</span></span>
@@ -576,15 +592,18 @@ button,input,select{font:inherit}a{color:inherit;text-decoration:none}
 
   function allMistakes(){
     const out=[];
-    Object.entries(state.examData||{}).forEach(([exam,e])=>{
-      (e.mistakes||[]).forEach((text,index)=>out.push({exam,text,index}));
+    const modeData=(state.examData && state.examData[state.mode]) || {};
+    Object.entries(modeData).forEach(([exam,e])=>{
+      (Array.isArray(e.mistakes)?e.mistakes:[]).forEach((text,index)=>out.push({exam,text,index}));
     });
     return out;
   }
 
   function examPercentByName(name){
     const e=getExamState(name);
-    return e.score && e.max ? Math.round((+e.score/+e.max)*100) : null;
+    return Number.isFinite(e.score) && Number.isFinite(e.max) && e.max>0
+      ? Math.round((e.score/e.max)*100)
+      : null;
   }
 
   function chapterWeakness(i){
@@ -628,8 +647,20 @@ button,input,select{font:inherit}a{color:inherit;text-decoration:none}
     $('todayMistakesLabel').textContent=mistakes.length ? mistakes.length+' saved mistake'+(mistakes.length===1?'':'s')+' to fix' : 'No saved mistakes yet';
     $('todayMistakesBtn').disabled=!mistakes.length;
     $('mistakesMasterList').innerHTML=mistakes.length
-      ? mistakes.map(m=>`<div class="mistake-master-item"><small>${escapeHtml(m.exam)}</small>${escapeHtml(m.text)}</div>`).join('')
-      : '<div class="sub">Your bank is empty. Add mistakes from any exam and they will appear here.</div>';
+      ? Object.entries(mistakes.reduce((groups,m)=>{
+          (groups[m.exam] ||= []).push(m);
+          return groups;
+        },{})).map(([exam,items])=>`
+          <details class="mistake-bank-group" open>
+            <summary><span>${escapeHtml(exam)}</span><b>${items.length} mistake${items.length===1?'':'s'}</b></summary>
+            <div class="mistake-bank-items">
+              ${items.map(m=>`<div class="mistake-master-item">
+                <div><small>REVIEW POINT</small>${escapeHtml(m.text)}</div>
+                <button type="button" class="bank-remove-mistake" data-exam="${escapeHtml(m.exam)}" data-mi="${m.index}" aria-label="Delete mistake">×</button>
+              </div>`).join('')}
+            </div>
+          </details>`).join('')
+      : '<div class="sub">Your bank is empty. Add a mistake inside any exam and it will appear here automatically.</div>';
 
     renderScoreRoad(scored);
   }
@@ -693,15 +724,31 @@ button,input,select{font:inherit}a{color:inherit;text-decoration:none}
       if(text){
         const st=getExamState(exam);
         st.mistakes.push(text);
+        save();
+        const examIndex=examsForMode().indexOf(exam);
         render();
+        requestAnimationFrame(()=>openAndScrollToCard('exam',examIndex));
       }
       return;
     }
     const rem=e.target.closest('.remove-mistake');
     if(rem){
-      const st=getExamState(rem.dataset.exam);
+      const exam=rem.dataset.exam;
+      const st=getExamState(exam);
       st.mistakes.splice(+rem.dataset.mi,1);
+      save();
+      const examIndex=examsForMode().indexOf(exam);
       render();
+      requestAnimationFrame(()=>openAndScrollToCard('exam',examIndex));
+      return;
+    }
+    const bankRem=e.target.closest('.bank-remove-mistake');
+    if(bankRem){
+      const st=getExamState(bankRem.dataset.exam);
+      st.mistakes.splice(+bankRem.dataset.mi,1);
+      save();
+      render();
+      requestAnimationFrame(()=>document.getElementById('mistakes')?.scrollIntoView({behavior:'smooth',block:'center'}));
       return;
     }
     const weak=e.target.closest('[data-chapter-jump]');
