@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DMH Study Tracker</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<meta name="theme-color" content="#0d0d0f">
+<meta property="og:title" content="DMH Study Tracker">
+<meta property="og:description" content="Your Road to the High Score — EST 800 & ACT 36">
+<meta property="og:image" content="https://drmahmoudhani1998-netizen.github.io/dmh-study-tracker/share-cover.jpg">
+<meta property="og:url" content="https://drmahmoudhani1998-netizen.github.io/dmh-study-tracker/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DMH Study Tracker">
+<meta name="twitter:description" content="Your Road to the High Score — EST 800 & ACT 36">
+<meta name="twitter:image" content="https://drmahmoudhani1998-netizen.github.io/dmh-study-tracker/share-cover.jpg">
+<style>
+:root{--red:#e31b23;--red2:#b80d14;--ink:#0d0d0f;--muted:#6e727b;--line:#e8e8eb;--soft:#f6f6f8;--white:#fff;--shadow:0 20px 70px rgba(20,20,28,.10)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(circle at 12% 4%,rgba(227,27,35,.08),transparent 26rem),radial-gradient(circle at 90% 20%,rgba(0,0,0,.045),transparent 28rem),#fff;overflow-x:hidden}
+button,input,select{font:inherit}a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px max(18px,calc((100vw - 1240px)/2));background:rgba(255,255,255,.84);backdrop-filter:blur(18px);border-bottom:1px solid rgba(0,0,0,.07)}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,var(--red),var(--red2));color:#fff;display:grid;place-items:center;font-weight:950;box-shadow:0 10px 25px rgba(227,27,35,.25)}
+.brand h1{font-size:17px;margin:0}.brand p{font-size:11px;color:var(--muted);margin:2px 0 0}
+.nav{display:flex;gap:4px;align-items:center}.nav-link{padding:9px 11px;border-radius:11px;font-size:13px;font-weight:800;color:#555;transition:.2s}.nav-link:hover,.nav-link.active{background:#111;color:#fff}
+.hero-shell{max-width:1240px;margin:0 auto;padding:38px 20px 12px}
+.hero{min-height:520px;border-radius:34px;background:linear-gradient(135deg,#0b0b0d 0%,#171719 57%,#250608 100%);color:#fff;padding:44px;display:grid;grid-template-columns:1.05fr .95fr;gap:38px;align-items:center;position:relative;overflow:hidden;box-shadow:0 28px 80px rgba(0,0,0,.16)}
+.hero:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(227,27,35,.34),transparent 67%);right:-90px;top:-100px}
+.hero:after{content:"";position:absolute;width:220px;height:680px;background:linear-gradient(180deg,rgba(227,27,35,.95),rgba(227,27,35,0));right:17%;top:-250px;transform:rotate(34deg);filter:blur(3px);opacity:.75}
+.hero-copy,.hero-visual{position:relative;z-index:2}.eyebrow{font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#ff6c72}
+.hero h2{font-size:clamp(42px,6vw,76px);line-height:.92;letter-spacing:-.055em;margin:12px 0 18px;max-width:660px}.hero h2 span{color:#ff333b}.hero-copy>p{font-size:16px;color:#c9c9cf;line-height:1.65;max-width:620px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.hero-actions a{padding:12px 15px;border-radius:14px;background:#fff;color:#111;font-weight:900;font-size:13px}.hero-actions a.secondary{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#fff}
+.hero-visual{min-height:390px;display:grid;place-items:center;perspective:1200px}.dashboard-3d{width:min(100%,470px);border-radius:28px;padding:22px;background:linear-gradient(155deg,rgba(255,255,255,.97),rgba(245,245,247,.91));color:#111;border:1px solid rgba(255,255,255,.45);box-shadow:0 45px 95px rgba(0,0,0,.42);transform:rotateY(-8deg) rotateX(5deg) rotateZ(1deg);transition:transform .25s}
+.mini-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.mini-brand{font-weight:950}.mini-badge{font-size:11px;font-weight:900;background:#111;color:#fff;padding:7px 10px;border-radius:999px}
+.progress-ring-wrap{display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:center;margin-top:22px}.progress-ring{--progress:0deg;width:126px;height:126px;border-radius:50%;background:conic-gradient(var(--red) var(--progress),#ececef 0);display:grid;place-items:center;position:relative}.progress-ring:after{content:"";width:94px;height:94px;border-radius:50%;background:white;position:absolute}.ring-inner{position:relative;z-index:2;text-align:center}.ring-inner strong{font-size:27px}.ring-inner span{font-size:10px;color:var(--muted);display:block}
+.mini-goal small{color:var(--muted)}.mini-goal strong{display:block;font-size:23px;margin-top:4px}.mini-goal p{font-size:12px;color:var(--muted);line-height:1.5}
+.float-card{position:absolute;border-radius:18px;padding:13px 15px;background:rgba(255,255,255,.96);color:#111;box-shadow:0 18px 45px rgba(0,0,0,.26);font-size:12px;font-weight:800;z-index:4}.float-one{right:-3px;top:50px;transform:rotate(6deg)}.float-two{left:2px;bottom:42px;transform:rotate(-5deg)}.float-card strong{font-size:19px;display:block;color:var(--red)}
+.container{max-width:1240px;margin:0 auto;padding:0 20px 70px}.control-deck{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}.mode-switch,.student-panel{border:1px solid var(--line);border-radius:24px;background:rgba(255,255,255,.86);backdrop-filter:blur(12px);padding:16px;box-shadow:0 10px 35px rgba(0,0,0,.04)}
+.mode-switch{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mode-btn{border:0;background:var(--soft);border-radius:15px;padding:14px;font-weight:950;cursor:pointer}.mode-btn.active{background:linear-gradient(145deg,var(--red),var(--red2));color:#fff;box-shadow:0 10px 25px rgba(227,27,35,.22)}
+.student-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field label{display:block;font-size:10px;letter-spacing:.1em;font-weight:900;color:var(--muted);margin:0 0 7px}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff;outline:none}
+.roadmap{margin-top:18px;border-radius:24px;background:#111;color:#fff;padding:16px;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.10)}.roadmap-inner{display:flex;align-items:center;gap:9px;min-width:780px}.road-step{flex:1;text-align:center;border-radius:14px;padding:12px 8px;font-weight:850;background:#1d1d20;border:1px solid #2b2b30}.road-step:last-child{background:linear-gradient(145deg,var(--red),var(--red2))}.arrow{color:#777;font-weight:950}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:18px}.stat{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:22px;padding:18px;background:#fff;box-shadow:0 12px 35px rgba(0,0,0,.035);transition:transform .25s,box-shadow .25s;transform-style:preserve-3d}.stat:before{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(227,27,35,.07);right:-25px;top:-30px}.stat small{color:var(--muted);font-weight:800}.stat strong{display:block;font-size:29px;margin-top:6px;letter-spacing:-.04em}
+.premium-section{border-radius:30px;padding:26px;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:var(--shadow);margin-top:34px;position:relative;overflow:hidden}.premium-section:before{content:"";position:absolute;inset:0 auto auto 0;width:100%;height:5px;background:linear-gradient(90deg,var(--red),#ff7b80,transparent 70%)}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}.section-kicker{font-size:10px;color:var(--red);font-weight:950;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}.section-head h3{font-size:28px;letter-spacing:-.035em;margin:0}.section-head p{margin:6px 0 0;color:var(--muted);max-width:680px}.tag{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:900;background:#fff}
+.calendar-controls{display:flex;gap:8px;flex-wrap:wrap}.cal-btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 13px;font-weight:900;cursor:pointer}.cal-btn.active{background:#111;color:#fff;border-color:#111}.calendar-wrap{margin-top:20px}.month-title{font-size:22px;font-weight:950;margin-bottom:13px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:9px}.weekday{font-size:11px;color:var(--muted);font-weight:900;text-align:center;padding:6px}.day{min-height:92px;border:1px solid var(--line);border-radius:16px;background:#fff;padding:10px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;transition:.2s}.day.empty{border-color:transparent;background:transparent}.day.event{cursor:pointer;background:linear-gradient(145deg,#fff5f5,#ffe9ea);border-color:#f2b9bc}.day.event:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(227,27,35,.12)}.day-number{font-weight:950}.event-dot{width:7px;height:7px;border-radius:50%;background:var(--red);display:inline-block;margin-right:5px}.event-label{font-size:10px;font-weight:900;color:var(--red);line-height:1.15;text-align:left}.calendar-legend{margin-top:10px;font-size:11px;color:var(--muted)}.event-detail{margin-top:16px;border-radius:18px;padding:18px;background:#111;color:#fff}.event-detail h4{margin:0 0 8px;font-size:19px}.event-row{padding:10px 0;border-top:1px solid #2b2b2f}.event-row:first-of-type{border-top:0}.event-type{font-size:10px;letter-spacing:.12em;font-weight:950;color:#ff686f;text-transform:uppercase}.event-time{font-weight:900;margin-top:3px}.event-topic{color:#c9c9ce;margin-top:3px}
+.list{display:grid;gap:13px;margin-top:20px}.card{border:1px solid var(--line);border-radius:19px;background:#fff;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,.025);transition:.22s}.card.open{box-shadow:0 14px 40px rgba(0,0,0,.07);border-color:#ddd}.accordion-toggle{width:100%;border:0;background:#fff;padding:16px 17px;display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;cursor:pointer}.accordion-toggle:hover{background:#fafafa}.accordion-left{min-width:0}.accordion-right{display:flex;align-items:center;gap:9px;flex-shrink:0}.card-title{font-weight:950}.sub{font-size:11px;color:var(--muted);margin-top:3px}.chevron{width:31px;height:31px;border-radius:50%;display:grid;place-items:center;background:var(--soft);font-weight:950;transition:transform .2s}.card.open .chevron{transform:rotate(180deg)}.accordion-body{display:none;padding:0 17px 17px;border-top:1px solid var(--line)}.card.open .accordion-body{display:block}.mini-track{height:8px;background:#ececef;border-radius:999px;overflow:hidden;margin-top:16px}.mini-track span{display:block;height:100%;background:linear-gradient(90deg,var(--red),#ff5d63)}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:13px}.check{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;font-size:12px}.check input{accent-color:var(--red)}.exam-grid{display:grid;grid-template-columns:1fr 1fr 150px 160px;gap:10px;margin-top:14px}.exam-grid input{border:1px solid var(--line);border-radius:12px;padding:11px;min-width:0}.metric{background:var(--soft);border-radius:12px;padding:10px}.metric small{display:block;color:var(--muted)}
+.revision-section:before{background:linear-gradient(90deg,#111,#777,transparent 70%)}.footer{padding:38px 20px;text-align:center;color:var(--muted);font-size:12px}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.75,.2,1)}.reveal.visible{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;transition:none}.dashboard-3d{transform:none}}
+@media(max-width:920px){.nav{display:none}.hero{grid-template-columns:1fr;padding:30px;min-height:auto}.hero-visual{min-height:360px}.control-deck{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.checks{grid-template-columns:repeat(2,1fr)}.exam-grid{grid-template-columns:1fr 1fr}.dashboard-3d{transform:rotateY(-4deg) rotateX(2deg)}}
+@media(max-width:560px){.hero-shell,.container{padding-left:12px;padding-right:12px}.hero{padding:24px 18px;border-radius:24px}.hero h2{font-size:43px}.hero-visual{min-height:330px}.dashboard-3d{padding:17px}.float-card{display:none}.progress-ring-wrap{grid-template-columns:105px 1fr}.progress-ring{width:102px;height:102px}.progress-ring:after{width:76px;height:76px}.student-grid,.stats,.checks,.exam-grid{grid-template-columns:1fr}.calendar-grid{gap:5px}.day{min-height:64px;padding:7px;border-radius:11px}.event-label{display:none}.premium-section{padding:18px;border-radius:23px}.section-head h3{font-size:24px}.topbar{padding:10px 12px}}
+
+.mission-panel{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:16px;
+}
+.mission-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:28px;
+  padding:24px;
+  background:linear-gradient(145deg,#ffffff,#f8f8fa);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.mission-card:before{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;border-radius:50%;
+  background:radial-gradient(circle,rgba(227,27,35,.12),transparent 70%);
+  right:-50px;top:-55px;
+}
+.mission-copy{position:relative;z-index:2}
+.mission-kicker{
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-weight:950;
+  color:var(--red);
+}
+.mission-card h3{
+  margin:6px 0 8px;
+  font-size:28px;
+  letter-spacing:-.035em;
+}
+.mission-card p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
+.mission-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.mission-btn{
+  border:0;
+  border-radius:14px;
+  padding:12px 15px;
+  font-weight:900;
+  cursor:pointer;
+}
+.mission-btn.primary{
+  background:linear-gradient(145deg,var(--red),var(--red2));
+  color:#fff;
+}
+.mission-btn.secondary{
+  background:#111;
+  color:#fff;
+}
+.mission-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.next-list{
+  display:grid;
+  gap:10px;
+  margin-top:16px;
+}
+.next-item{
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:13px 14px;
+  background:#fff;
+}
+.next-item small{
+  display:block;
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-weight:900;
+}
+.next-item strong{
+  display:block;
+  margin-top:4px;
+}
+.mission-status{
+  min-height:100%;
+  border-radius:28px;
+  padding:24px;
+  background:#111;
+  color:#fff;
+  box-shadow:0 22px 60px rgba(0,0,0,.14);
+}
+.mission-status .mission-kicker{color:#ff6b72}
+.mission-status h3{font-size:28px;margin:6px 0 12px}
+.mission-progress{
+  height:12px;
+  background:#2a2a2e;
+  border-radius:999px;
+  overflow:hidden;
+  margin:16px 0 10px;
+}
+.mission-progress span{
+  display:block;
+  height:100%;
+  width:0;
+  background:linear-gradient(90deg,#ff343c,#ff7278);
+  border-radius:999px;
+}
+.mission-status p{
+  color:#c7c7cc;
+  line-height:1.6;
+  margin:0;
+}
+@media(max-width:920px){.mission-panel{grid-template-columns:1fr}}
+@media(max-width:560px){.mission-card,.mission-status{padding:18px;border-radius:22px}.mission-card h3,.mission-status h3{font-size:24px}}
+
+
+/* ===== V7 Intelligence Layer ===== */
+.intelligence-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;margin-top:18px}
+.smart-panel{border:1px solid var(--line);border-radius:28px;background:#fff;padding:22px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.smart-panel.dark{background:#111;color:#fff;border-color:#111}
+.smart-panel:before{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-60px;top:-70px;background:radial-gradient(circle,rgba(227,27,35,.12),transparent 70%)}
+.smart-panel.dark:before{background:radial-gradient(circle,rgba(227,27,35,.35),transparent 70%)}
+.smart-title{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.smart-title h3{margin:4px 0 0;font-size:25px;letter-spacing:-.035em}.smart-title p{margin:5px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.dark .smart-title p{color:#bbb}
+.readiness-wrap{display:grid;grid-template-columns:112px 1fr;gap:17px;align-items:center;margin-top:18px;position:relative;z-index:2}
+.readiness-ring{--ready:0deg;width:110px;height:110px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--red) var(--ready),#ededf0 0);position:relative}.dark .readiness-ring{background:conic-gradient(#ff3941 var(--ready),#2b2b2f 0)}
+.readiness-ring:after{content:"";position:absolute;width:82px;height:82px;border-radius:50%;background:#fff}.dark .readiness-ring:after{background:#111}.readiness-ring strong{position:relative;z-index:2;font-size:25px}
+.readiness-breakdown{display:grid;gap:7px}.ready-row{display:flex;justify-content:space-between;gap:10px;font-size:12px}.ready-row span{color:var(--muted)}.dark .ready-row span{color:#aaa}
+.weakness-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px;position:relative;z-index:2}.weak-chip{border:1px solid var(--line);border-radius:15px;padding:12px;background:#fafafa;cursor:pointer;transition:.2s}.weak-chip:hover{transform:translateY(-2px)}.weak-chip small{display:block;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase}.weak-chip strong{display:block;margin-top:4px;font-size:13px}.weak-chip.weak{background:#fff0f1;border-color:#efb7ba}.weak-chip.revise{background:#fff9ef}.weak-chip.strong{background:#f3f8f4}
+.road3d{margin-top:18px;border-radius:30px;padding:25px;background:linear-gradient(135deg,#09090b,#19191c);color:#fff;box-shadow:0 25px 70px rgba(0,0,0,.16);overflow:hidden;position:relative}.road3d:before{content:"";position:absolute;inset:-100px -100px auto auto;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(227,27,35,.35),transparent 70%)}
+.road3d-head{position:relative;z-index:2;display:flex;justify-content:space-between;gap:15px;align-items:end;flex-wrap:wrap}.road3d-head h3{margin:3px 0 0;font-size:28px}.road-current{font-size:12px;color:#bbb}.road-current strong{display:block;font-size:26px;color:#fff}
+.score-road{position:relative;z-index:2;margin-top:30px;padding:30px 10px 12px;perspective:800px}.road-line{height:18px;border-radius:999px;background:linear-gradient(180deg,#343439,#202024);box-shadow:inset 0 2px 4px rgba(255,255,255,.08),0 13px 28px rgba(0,0,0,.4);position:relative}.road-fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#8e0d12,var(--red),#ff5d64);transition:width .5s}.road-marker{position:absolute;top:50%;transform:translate(-50%,-50%);width:16px;height:16px;border-radius:50%;background:#fff;border:4px solid #555;z-index:3}.road-marker.hit{border-color:var(--red);box-shadow:0 0 0 5px rgba(227,27,35,.15)}.road-label{position:absolute;top:-31px;transform:translateX(-50%);font-size:11px;font-weight:950;color:#aaa}.road-marker.hit + .road-label{color:#fff}.road-car{position:absolute;top:50%;left:0;transform:translate(-50%,-50%);width:34px;height:34px;border-radius:12px;background:#fff;color:#111;display:grid;place-items:center;font-size:17px;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:left .5s;z-index:5}
+.mistake-box{margin-top:13px;border-top:1px solid var(--line);padding-top:13px}.mistake-input-row{display:grid;grid-template-columns:1fr auto;gap:8px}.mistake-input{border:1px solid var(--line);border-radius:12px;padding:11px;width:100%}.add-mistake{border:0;border-radius:12px;padding:10px 13px;background:#111;color:#fff;font-weight:900;cursor:pointer}.mistake-list{display:grid;gap:7px;margin-top:10px}.mistake-item{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#fff4f4;border:1px solid #f2c6c8;border-radius:12px;padding:10px;font-size:12px}.mistake-item button{border:0;background:transparent;cursor:pointer;font-weight:950;color:var(--red)}
+.mistakes-master{margin-top:34px}.mistake-master-list{display:grid;gap:10px;margin-top:18px}.mistake-master-item{border:1px solid var(--line);border-radius:15px;padding:13px;background:#fff}.mistake-master-item small{display:block;color:var(--red);font-weight:950;margin-bottom:4px}
+.today-task-list{display:grid;gap:9px;margin-top:16px}.today-task{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid var(--line);border-radius:15px;padding:12px;background:#fff}.today-task span{min-width:0}.today-task small{display:block;color:var(--muted);font-size:10px;font-weight:900;text-transform:uppercase}.today-task strong{display:block;margin-top:3px;font-size:13px}.today-task button{border:0;border-radius:11px;background:#111;color:#fff;padding:9px 11px;font-size:11px;font-weight:900;cursor:pointer;flex-shrink:0}
+@media(max-width:920px){.intelligence-grid{grid-template-columns:1fr}.weakness-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.weakness-grid{grid-template-columns:1fr}.readiness-wrap{grid-template-columns:95px 1fr}.readiness-ring{width:92px;height:92px}.readiness-ring:after{width:68px;height:68px}.smart-panel,.road3d{padding:18px;border-radius:22px}.road-label{font-size:9px}.mistake-input-row{grid-template-columns:1fr}}
+
+</style>
+</head>
+
+<body>
+<header class="topbar">
+  <div class="brand"><div class="logo">DMH</div><div><h1>DMH Biology</h1><p>Home of High Scores</p></div></div>
+  <nav class="nav"><a class="nav-link active" href="#overview">Overview</a><a class="nav-link" href="#calendar">Calendar</a><a class="nav-link" href="#chapters">Chapters</a><a class="nav-link" href="#exams">Exams</a><a class="nav-link" href="#revision">Revision</a></nav>
+</header>
+<main>
+<div class="hero-shell" id="overview" data-section>
+<section class="hero reveal">
+<div class="hero-copy">
+<div class="eyebrow">DMH STUDY TRACKER • EXAMS & REVISION CAMP</div>
+<h2>Your road to the <span>High Score</span> starts here.</h2>
+<p>A practical study command center for chapters, revision, exam scores and your full camp calendar — all saved automatically on this device.</p>
+<div class="hero-actions"><a href="#calendar">View Calendar</a><a class="secondary" href="#chapters">Continue Studying ↓</a></div>
+</div>
+<div class="hero-visual">
+<div class="dashboard-3d" data-tilt>
+<div class="mini-top"><div class="mini-brand">DMH Biology</div><div class="mini-badge">LIVE TRACKER</div></div>
+<div class="progress-ring-wrap">
+<div id="progressRing" class="progress-ring"><div class="ring-inner"><strong id="ringPercent">0%</strong><span>OVERALL</span></div></div>
+<div class="mini-goal"><small>Your current target</small><strong id="targetLabel">EST 800 🔥</strong><p>Finish your chapters, track exam scores and keep moving toward your goal.</p></div>
+</div></div>
+<div class="float-card float-one"><span>Exam Average</span><strong id="averageStatHero">Track it</strong></div>
+<div class="float-card float-two"><span>Progress saved</span><strong>Automatically ✓</strong></div>
+</div></section></div>
+
+<div class="container">
+<section class="control-deck reveal">
+<div class="mode-switch"><button class="mode-btn active" id="estBtn">EST • Road to 800</button><button class="mode-btn" id="actBtn">ACT • Road to 36</button></div>
+<div class="student-panel"><div class="student-grid"><div class="field"><label for="studentName">STUDENT NAME</label><input id="studentName" placeholder="Enter your name"></div><div class="field"><label for="targetSelect">HIGH SCORE GOAL</label><select id="targetSelect"></select></div></div></div>
+</section>
+
+<section class="roadmap reveal"><div class="roadmap-inner"><div class="road-step">Chapters</div><div class="arrow">→</div><div class="road-step">Practice</div><div class="arrow">→</div><div class="road-step">Chapter Exams</div><div class="arrow">→</div><div class="road-step">Mistakes Review</div><div class="arrow">→</div><div class="road-step">Revision</div><div class="arrow">→</div><div class="road-step" id="roadFinal">800 🏆</div></div>
+</section>
+
+<section class="mission-panel reveal" id="mission">
+  <div class="mission-card" data-tilt>
+    <div class="mission-copy">
+      <div class="mission-kicker">Continue Your Mission</div>
+      <h3 id="missionHeadline">Loading your next move…</h3>
+      <p id="missionText">We’ll automatically find the next chapter and exam you still need to complete.</p>
+
+      <div class="today-task-list">
+        <div class="today-task"><span><small>01 • Study</small><strong id="nextChapterLabel">—</strong></span><button type="button" id="todayChapterBtn">Start</button></div>
+        <div class="today-task"><span><small>02 • Exam</small><strong id="nextExamLabel">—</strong></span><button type="button" id="todayExamBtn">Open</button></div>
+        <div class="today-task"><span><small>03 • Fix Mistakes</small><strong id="todayMistakesLabel">No saved mistakes yet</strong></span><button type="button" id="todayMistakesBtn">Review</button></div>
+      </div>
+
+      <div class="mission-actions">
+        <button type="button" class="mission-btn primary" id="goChapterBtn">Continue Chapter</button>
+        <button type="button" class="mission-btn secondary" id="goExamBtn">Go to Exam</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mission-status" data-tilt>
+    <div class="mission-kicker">Mission Status</div>
+    <h3 id="missionStatusTitle">Keep moving 🔥</h3>
+    <div class="mission-progress"><span id="missionProgressBar"></span></div>
+    <p id="missionStatusText">Your tracker will update this automatically as you complete chapters and exams.</p>
+  </div>
+</section>
+
+<section class="stats reveal">
+<div class="stat" data-tilt><small>Overall Progress</small><strong id="overallPercent">0%</strong><div class="mini-track"><span id="overallBar" style="width:0%"></span></div></div>
+<div class="stat" data-tilt><small>Chapters Completed</small><strong id="chaptersStat">0 / 13</strong></div>
+<div class="stat" data-tilt><small>Exams Completed</small><strong id="examsStat">0 / 0</strong></div>
+<div class="stat" data-tilt><small>Average Score</small><strong id="averageStat">—</strong><span id="questionsStat" style="display:none">0</span></div>
+</section>
+
+<section class="intelligence-grid reveal">
+  <div class="smart-panel">
+    <div class="smart-title"><div><div class="section-kicker">Smart Diagnosis</div><h3>Weakness Map</h3><p>Your chapters are classified automatically from progress and exam performance.</p></div><span class="tag">Live</span></div>
+    <div class="weakness-grid" id="weaknessGrid"></div>
+  </div>
+  <div class="smart-panel dark">
+    <div class="smart-title"><div><div class="section-kicker">Trial Readiness</div><h3>Are you ready?</h3><p>Calculated from chapters, exams and revision completion.</p></div></div>
+    <div class="readiness-wrap">
+      <div class="readiness-ring" id="readinessRing"><strong id="readinessScore">0%</strong></div>
+      <div class="readiness-breakdown">
+        <div class="ready-row"><span>Chapter mastery</span><strong id="readyChapters">0%</strong></div>
+        <div class="ready-row"><span>Exam performance</span><strong id="readyExams">0%</strong></div>
+        <div class="ready-row"><span>Revision</span><strong id="readyRevision">0%</strong></div>
+        <div class="ready-row"><span>Status</span><strong id="readyStatus">Building</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="road3d reveal" id="scoreRoad">
+  <div class="road3d-head"><div><div class="section-kicker">High Score Journey</div><h3 id="road3dTitle">Road to 800</h3></div><div class="road-current">Current best exam<strong id="roadBestScore">—</strong></div></div>
+  <div class="score-road"><div class="road-line" id="roadLine"><div class="road-fill" id="roadFill"></div><div class="road-car" id="roadCar">⚡</div></div></div>
+</section>
+
+<section id="calendar" data-section class="premium-section reveal">
+<div class="section-head"><div><div class="section-kicker">Your schedule</div><h3 id="calendarTitle">EST Camp Calendar</h3><p>Only active session and exam days are highlighted. Tap any highlighted day to see the exact time and what you will take.</p></div><div class="calendar-controls"><button type="button" class="cal-btn active" data-month="8">September</button><button type="button" class="cal-btn" data-month="9">October</button></div></div>
+<div class="calendar-wrap"><div class="month-title" id="monthTitle">September 2026</div><div class="calendar-grid" id="calendarGrid"></div><div class="calendar-legend"><span><span class="event-dot"></span> Highlighted = Session / Exam</span></div><div class="event-detail" id="eventDetail"><h4>Select a highlighted day</h4><div class="event-topic">Session details will appear here.</div></div></div>
+</section>
+
+<section id="chapters" data-section class="premium-section reveal"><div class="section-head"><div><div class="section-kicker">Master the syllabus</div><h3>Biology Chapters</h3><p>Every chapter stays compact until you open it. Complete the six study tasks to reach 100%.</p></div><span class="tag">13 Fixed Chapters</span></div><div class="list" id="chaptersList"></div></section>
+
+<section id="exams" data-section class="premium-section reveal"><div class="section-head"><div><div class="section-kicker">Measure your level</div><h3 id="examSectionTitle">EST Exams</h3><p>Open an exam, enter your score, and the tracker calculates your percentage and average automatically.</p></div><span class="tag" id="examCountTag"></span></div><div class="list" id="examsList"></div></section>
+
+
+<section id="mistakes" data-section class="premium-section mistakes-master reveal">
+  <div class="section-head"><div><div class="section-kicker">Fix Before Trial</div><h3>My Mistakes Bank</h3><p>Every mistake you save under an exam appears here for one final focused review.</p></div><span class="tag" id="mistakesCountTag">0 Mistakes</span></div>
+  <div class="mistake-master-list" id="mistakesMasterList"></div>
+</section>
+
+<section id="revision" data-section class="premium-section revision-section reveal"><div class="section-head"><div><div class="section-kicker">Lock it in</div><h3>Final Revision</h3><p>Track First Revision, Second Revision and Final Revision independently for every chapter.</p></div></div><div class="list" id="revisionList"></div></section>
+</div>
+</main>
+<footer class="footer">DMH Biology • Home of High Scores • By Dr. Mahmoud Hani</footer>
+<script>
+(() => {
+  const CHAPTERS = [
+    'Ecology','Animal Behavior','Cell & Transport','Cell Division','Genetics','Plant',
+    'Biochemistry','Photosynthesis & Cellular Respiration','DNA','Taxonomy','Systems',
+    'Evolution','Biological Processes'
+  ];
+
+  const EST_EXAMS = [
+    'Sample Test 2','Sample Test 3','Sample Test 4','Sample Test 5',
+    'Real Exam Trial JULY 2026','Real Exam 7','Real Exam 8','Real Exam 9',
+    'Real Exam 10','Real Exam 11','Real Exam 12','Real Exam 14',
+    'Unreleased Exam 4','Unreleased Exam 5'
+  ];
+
+  const ACT_EXAMS = Array.from({length:14},(_,i)=>`ACT Bank ${i+1}`);
+  const taskNames = ['Session Watched','Notes Reviewed','Important Points','Questions Solved','Chapter Exam','Mistakes Reviewed'];
+  const STORAGE_KEY = 'dmh-study-tracker-v2';
+
+  const CALENDAR_EVENTS = {
+    EST: [
+      {date:'2026-09-06',type:'Exam',title:'Sample Test 2',time:'5:00 pm – 8:30 pm'},{date:'2026-09-07',type:'Exam',title:'Sample Test 3',time:'6:30 pm – 9:00 pm'},{date:'2026-09-09',type:'Exam',title:'Sample Test 4',time:'5:00 pm – 8:30 pm'},{date:'2026-09-10',type:'Exam',title:'Sample Test 5',time:'6:30 pm – 9:00 pm'},{date:'2026-09-13',type:'Exam',title:'Real Exam Trial JULY 2026',time:'5:00 pm – 8:30 pm'},{date:'2026-09-14',type:'Exam',title:'Real Exam 7',time:'6:30 pm – 9:00 pm'},{date:'2026-09-16',type:'Exam',title:'Real Exam 8',time:'5:00 pm – 8:30 pm'},{date:'2026-09-17',type:'Exam',title:'Real Exam 9',time:'6:30 pm – 9:00 pm'},{date:'2026-09-20',type:'Exam',title:'Real Exam 10',time:'5:00 pm – 8:30 pm'},{date:'2026-09-21',type:'Exam',title:'Real Exam 11',time:'6:30 pm – 9:00 pm'},{date:'2026-09-23',type:'Exam',title:'Real Exam 12',time:'5:00 pm – 8:30 pm'},{date:'2026-09-24',type:'Exam',title:'Real Exam 14',time:'6:30 pm – 9:00 pm'},{date:'2026-09-27',type:'Exam',title:'Unreleased Exam 4 + Unreleased Exam 5',time:'5:00 pm – 8:30 pm'},{date:'2026-09-30',type:'Revision',title:'Ecology + Animal Behavior',time:'5:00 pm – 8:00 pm'},
+      {date:'2026-10-01',type:'Revision',title:'Cell & Transport',time:'6:30 pm – 10:00 pm'},{date:'2026-10-02',type:'Revision',title:'Cell Division',time:'6:30 pm – 9:30 pm'},{date:'2026-10-03',type:'Revision',title:'Genetics',time:'3:30 pm – 8:30 pm'},{date:'2026-10-04',type:'Revision',title:'Plant + Biochemistry',time:'5:00 pm – 9:30 pm'},{date:'2026-10-05',type:'Revision',title:'Photosynthesis & Cellular Respiration',time:'6:30 pm – 10:00 pm'},{date:'2026-10-06',type:'Revision',title:'DNA',time:'5:00 pm – 9:00 pm'},{date:'2026-10-07',type:'Revision',title:'Taxonomy + All Systems',time:'5:00 pm – 9:00 pm'},{date:'2026-10-08',type:'Revision',title:'Evolution',time:'6:30 pm – 10:00 pm'},{date:'2026-10-09',type:'Revision',title:'Last Day Revision',time:'3:00 pm – 1:00 am'}],
+    ACT: [
+      {date:'2026-09-06',type:'Exam',title:'ACT Bank 1',time:'8:30 pm – 10:30 pm'},{date:'2026-09-09',type:'Exam',title:'ACT Bank 2',time:'8:30 pm – 10:30 pm'},{date:'2026-09-13',type:'Exam',title:'ACT Bank 3',time:'8:30 pm – 10:30 pm'},{date:'2026-09-16',type:'Exam',title:'ACT Bank 4',time:'8:30 pm – 10:30 pm'},{date:'2026-09-18',type:'Exam',title:'ACT Bank 5',time:'6:30 pm – 8:30 pm'},{date:'2026-09-20',type:'Exam',title:'ACT Bank 6',time:'8:30 pm – 10:30 pm'},{date:'2026-09-23',type:'Exam',title:'ACT Bank 7',time:'8:30 pm – 10:30 pm'},{date:'2026-09-25',type:'Exam',title:'ACT Bank 8',time:'6:30 pm – 8:30 pm'},{date:'2026-09-27',type:'Exam',title:'ACT Bank 9',time:'8:30 pm – 10:30 pm'},{date:'2026-09-30',type:'Revision',title:'Ecology + Animal Behavior',time:'5:00 pm – 8:00 pm'},
+      {date:'2026-10-01',type:'Revision',title:'Cell & Transport',time:'6:30 pm – 10:00 pm'},{date:'2026-10-02',type:'Revision',title:'Cell Division',time:'6:30 pm – 9:30 pm'},{date:'2026-10-03',type:'Revision',title:'Genetics',time:'3:30 pm – 8:30 pm'},{date:'2026-10-04',type:'Revision',title:'Plant + Biochemistry',time:'5:00 pm – 9:30 pm'},{date:'2026-10-05',type:'Revision',title:'Photosynthesis & Cellular Respiration',time:'6:30 pm – 10:00 pm'},{date:'2026-10-06',type:'Revision',title:'DNA',time:'5:00 pm – 9:00 pm'},{date:'2026-10-07',type:'Revision',title:'Taxonomy + All Systems',time:'5:00 pm – 9:00 pm'},{date:'2026-10-08',type:'Revision',title:'Evolution',time:'6:30 pm – 10:00 pm'},{date:'2026-10-09',type:'Revision',title:'Last Day Revision',time:'3:00 pm – 1:00 am'},{date:'2026-10-11',type:'Exam',title:'ACT Bank 10',time:'8:30 pm – 10:30 pm'},{date:'2026-10-14',type:'Exam',title:'ACT Bank 11',time:'8:30 pm – 10:30 pm'},{date:'2026-10-16',type:'Exam',title:'ACT Bank 12',time:'6:30 pm – 8:30 pm'},{date:'2026-10-18',type:'Exam',title:'ACT Bank 13',time:'Time not clearly shown in uploaded plan'},{date:'2026-10-21',type:'Exam',title:'ACT Bank 14',time:'8:30 pm – 10:30 pm'},{date:'2026-10-24',type:'2nd Revision',title:'Biochemistry + Systems',time:'5:00 pm – 7:30 pm'},{date:'2026-10-25',type:'2nd Revision',title:'Cell & Transport + Cell Division',time:'5:00 pm – 7:30 pm'},{date:'2026-10-26',type:'2nd Revision',title:'Genetics',time:'5:00 pm – 7:30 pm'},{date:'2026-10-27',type:'2nd Revision',title:'DNA + Taxonomy',time:'5:00 pm – 7:30 pm'},{date:'2026-10-28',type:'2nd Revision',title:'Evolution',time:'5:00 pm – 7:30 pm'},{date:'2026-10-29',type:'2nd Revision',title:'Ecology',time:'5:00 pm – 7:30 pm'},{date:'2026-10-30',type:'2nd Revision',title:'Plant + Photosynthesis & Cellular Respiration',time:'5:00 pm – 7:30 pm'}]
+  };
+  let calendarMonth = 8;
+  function renderCalendar(){
+    const year=2026, month=calendarMonth, monthNames=['January','February','March','April','May','June','July','August','September','October','November','December'], weekdays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    $('monthTitle').textContent=monthNames[month]+' '+year; $('calendarTitle').textContent=state.mode+' Camp Calendar'; document.querySelectorAll('.cal-btn').forEach(b=>b.classList.toggle('active',+b.dataset.month===month));
+    const first=new Date(Date.UTC(year,month,1)).getUTCDay(), total=new Date(Date.UTC(year,month+1,0)).getUTCDate(), events=CALENDAR_EVENTS[state.mode].filter(e=>+e.date.slice(5,7)-1===month), byDay={};
+    events.forEach(e=>{const d=+e.date.slice(8,10);(byDay[d] ||= []).push(e)});
+    let cells=weekdays.map(d=>`<div class="weekday">${d}</div>`).join(''); for(let i=0;i<first;i++)cells+='<div class="day empty"></div>';
+    for(let d=1;d<=total;d++){const evs=byDay[d]||[];cells+=`<button type="button" class="day ${evs.length?'event':''}" ${evs.length?`data-day="${d}"`:''}><span class="day-number">${d}</span>${evs.length?`<span class="event-label"><span class="event-dot"></span>${evs.length===1?evs[0].title:evs.length+' sessions'}</span>`:''}</button>`} $('calendarGrid').innerHTML=cells;
+  }
+  function showCalendarDay(day){const mm=String(calendarMonth+1).padStart(2,'0'),dd=String(day).padStart(2,'0'),date=`2026-${mm}-${dd}`,events=CALENDAR_EVENTS[state.mode].filter(e=>e.date===date);if(!events.length)return;const pretty=new Date(Date.UTC(2026,calendarMonth,day)).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',timeZone:'UTC'});$('eventDetail').innerHTML=`<h4>${pretty}</h4>`+events.map(e=>`<div class="event-row"><div class="event-type">${e.type}</div><div class="event-time">${e.time}</div><div class="event-topic">${e.title}</div></div>`).join('')}
+
+
+  let state;
+  try { state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e){ state = {}; }
+
+  state.mode = state.mode === 'ACT' ? 'ACT' : 'EST';
+  state.name = state.name || '';
+  state.target = state.target || (state.mode==='EST' ? 'EST 800' : 'ACT 36');
+  state.chapterData = Array.isArray(state.chapterData) && state.chapterData.length===CHAPTERS.length
+    ? state.chapterData
+    : CHAPTERS.map(()=>({tasks:Array(6).fill(false),revisions:Array(3).fill(false)}));
+  state.examData = state.examData || {EST:{},ACT:{}};
+
+  const $=id=>document.getElementById(id);
+  const save=()=>localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  const chapterPct=c=>Math.round(c.tasks.filter(Boolean).length/c.tasks.length*100);
+  const examsForMode=()=>state.mode==='EST'?EST_EXAMS:ACT_EXAMS;
+  const targetOptions=()=>state.mode==='EST'?['EST 800','EST 750+','EST 700+']:['ACT 36','ACT 34+','ACT 32+'];
+
+  function getExamState(name){
+    if(!state.examData[state.mode][name]) state.examData[state.mode][name]={score:null,max:null,completed:false,questions:0};
+    return state.examData[state.mode][name];
+  }
+
+  function overall(){
+    const chapterBits=state.chapterData.flatMap(c=>c.tasks);
+    const examBits=examsForMode().map(n=>!!getExamState(n).completed);
+    const all=[...chapterBits,...examBits];
+    return all.length?Math.round(all.filter(Boolean).length/all.length*100):0;
+  }
+
+  function render(){
+    $('studentName').value=state.name;
+    $('estBtn').classList.toggle('active',state.mode==='EST');
+    $('actBtn').classList.toggle('active',state.mode==='ACT');
+
+    const opts=targetOptions();
+    if(!opts.includes(state.target)) state.target=opts[0];
+    $('targetSelect').innerHTML=opts.map(o=>`<option>${o}</option>`).join('');
+    $('targetSelect').value=state.target;
+    $('targetLabel').textContent=state.target+' 🔥';
+    $('roadFinal').textContent=state.mode==='EST'?'800 🏆':'36 🏆';
+
+    const o=overall();
+    $('overallPercent').textContent=o+'%';
+    $('overallBar').style.width=o+'%';
+    $('ringPercent').textContent=o+'%';
+    $('progressRing').style.setProperty('--progress', o*3.6+'deg');
+
+    const doneCh=state.chapterData.filter(c=>chapterPct(c)===100).length;
+    const names=examsForMode();
+    const doneEx=names.filter(n=>getExamState(n).completed).length;
+    $('chaptersStat').textContent=doneCh+' / '+CHAPTERS.length;
+    $('examsStat').textContent=doneEx+' / '+names.length;
+
+    const scored=names.map(n=>getExamState(n)).filter(e=>Number.isFinite(e.score)&&Number.isFinite(e.max)&&e.max>0);
+    const avgText=scored.length ? Math.round(scored.reduce((s,e)=>s+(e.score/e.max*100),0)/scored.length)+'%' : '—';
+    $('averageStat').textContent=avgText;
+    $('averageStatHero').textContent=avgText==='—'?'Track it':avgText;
+    $('questionsStat').textContent=names.filter(n=>getExamState(n).completed).reduce((s,n)=>s+Number(getExamState(n).questions||0),0);
+
+    $('chaptersList').innerHTML=CHAPTERS.map((name,i)=>{
+      const c=state.chapterData[i], pct=chapterPct(c), status=pct===100?'Completed':pct>0?'In Progress':'Not Started';
+      return `<article class="card" id="chapter-card-${i}">
+        <button type="button" class="accordion-toggle" aria-expanded="false">
+          <span class="accordion-left"><span class="card-title">${i+1}. ${name}</span><span class="sub" style="display:block">${status} • ${pct}%</span></span>
+          <span class="accordion-right"><span class="tag">${pct===100?'Completed ✓':status}</span><span class="chevron">⌄</span></span>
+        </button>
+        <div class="accordion-body">
+          <div class="mini-track"><span style="width:${pct}%"></span></div>
+          <div class="checks">
+            ${taskNames.map((t,ti)=>`<label class="check"><input class="chapterTask" type="checkbox" data-i="${i}" data-ti="${ti}" ${c.tasks[ti]?'checked':''}> ${t}</label>`).join('')}
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+
+    $('examSectionTitle').textContent=state.mode==='EST'?'EST Exams • Road to 800':'ACT Exams • Road to 36';
+    $('examCountTag').textContent=names.length+' Fixed Exams';
+
+    $('examsList').innerHTML=names.map((name,i)=>{
+      const e=getExamState(name);
+      const pct=(Number.isFinite(e.score)&&Number.isFinite(e.max)&&e.max>0)?Math.round(e.score/e.max*100):null;
+      const label=pct===null?'No score yet':pct>=90?'Excellent 🔥':pct>=80?'Very Good':pct>=70?'Good':'Needs Revision';
+      return `<article class="card" id="chapter-card-${i}">
+        <button type="button" class="accordion-toggle" aria-expanded="false">
+          <span class="accordion-left"><span class="card-title">${name}</span><span class="sub" style="display:block">${label}</span></span>
+          <span class="accordion-right"><span class="tag">${e.completed?'Completed ✓':'Pending'}</span><span class="chevron">⌄</span></span>
+        </button>
+        <div class="accordion-body">
+          <div class="exam-grid">
+            <input class="examScore" data-name="${name}" type="number" min="0" placeholder="Score" value="${Number.isFinite(e.score)?e.score:''}">
+            <input class="examMax" data-name="${name}" type="number" min="1" placeholder="Out of" value="${Number.isFinite(e.max)?e.max:''}">
+            <div class="metric"><small>Percentage</small><strong>${pct===null?'—':pct+'%'}</strong></div>
+            <label class="check"><input class="examDone" data-name="${name}" type="checkbox" ${e.completed?'checked':''}> Completed</label>
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+
+    $('revisionList').innerHTML=CHAPTERS.map((name,i)=>{
+      const c=state.chapterData[i];
+      return `<article class="card" id="chapter-card-${i}">
+        <button type="button" class="accordion-toggle" aria-expanded="false">
+          <span class="accordion-left"><span class="card-title">${name}</span><span class="sub" style="display:block">Revision rounds</span></span>
+          <span class="accordion-right"><span class="chevron">⌄</span></span>
+        </button>
+        <div class="accordion-body">
+          <div class="checks">
+            ${['First Revision','Second Revision','Final Revision'].map((r,ri)=>`
+              <label class="check"><input class="revisionTask" data-i="${i}" data-ri="${ri}" type="checkbox" ${c.revisions[ri]?'checked':''}> ${r}</label>`).join('')}
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+
+
+    const nextChapterIndex = state.chapterData.findIndex(c=>chapterPct(c)<100);
+    const currentExamNames = examsForMode();
+    const nextExamIndex = currentExamNames.findIndex(n=>!getExamState(n).completed);
+
+    const nextChapterName = nextChapterIndex>=0 ? CHAPTERS[nextChapterIndex] : null;
+    const nextExamName = nextExamIndex>=0 ? currentExamNames[nextExamIndex] : null;
+
+    $('nextChapterLabel').textContent = nextChapterName || 'All chapters completed ✓';
+    $('nextExamLabel').textContent = nextExamName || 'All exams completed ✓';
+
+    $('goChapterBtn').disabled = nextChapterIndex<0;
+    $('goExamBtn').disabled = nextExamIndex<0;
+    $('goChapterBtn').dataset.index = nextChapterIndex;
+    $('goExamBtn').dataset.index = nextExamIndex;
+
+    if(nextChapterIndex<0 && nextExamIndex<0){
+      $('missionHeadline').textContent = 'Mission Complete 🏆';
+      $('missionText').textContent = 'You completed every chapter and exam in your current track.';
+      $('missionStatusTitle').textContent = state.mode==='EST' ? 'Road to 800 complete 🔥' : 'Road to 36 complete 🔥';
+      $('missionStatusText').textContent = 'Keep your revision rounds strong and maintain your score.';
+    }else if(nextChapterIndex>=0){
+      $('missionHeadline').textContent = 'Next up: ' + nextChapterName;
+      $('missionText').textContent = 'Continue from the first unfinished chapter, then move to your next pending exam.';
+      $('missionStatusTitle').textContent = 'Keep moving 🔥';
+      $('missionStatusText').textContent = nextExamName ? ('After that: ' + nextExamName) : 'Your exams are already complete.';
+    }else{
+      $('missionHeadline').textContent = 'Chapters done. Finish the exams.';
+      $('missionText').textContent = 'Your syllabus work is complete. Focus on the remaining exam practice.';
+      $('missionStatusTitle').textContent = 'Final exam push 🚀';
+      $('missionStatusText').textContent = 'Next exam: ' + nextExamName;
+    }
+
+    $('missionProgressBar').style.width = o + '%';
+
+    renderIntelligence();
+    renderCalendar();
+    save();
+  }
+
+  $('estBtn').onclick=()=>{state.mode='EST';state.target='EST 800';render();};
+  $('actBtn').onclick=()=>{state.mode='ACT';state.target='ACT 36';render();};
+  $('targetSelect').onchange=e=>{state.target=e.target.value;render();};
+  $('studentName').addEventListener('input',e=>{state.name=e.target.value;save();});
+
+  document.addEventListener('change',e=>{
+    const t=e.target;
+    if(t.classList.contains('chapterTask')){
+      state.chapterData[+t.dataset.i].tasks[+t.dataset.ti]=t.checked;
+      render();
+    }else if(t.classList.contains('revisionTask')){
+      state.chapterData[+t.dataset.i].revisions[+t.dataset.ri]=t.checked;
+      render();
+    }else if(t.classList.contains('examDone')){
+      getExamState(t.dataset.name).completed=t.checked;
+      render();
+    }else if(t.classList.contains('examScore')){
+      getExamState(t.dataset.name).score=t.value===''?null:Number(t.value);
+      render();
+    }else if(t.classList.contains('examMax')){
+      getExamState(t.dataset.name).max=t.value===''?null:Number(t.value);
+      render();
+    }
+  });
+
+
+
+  document.querySelectorAll('.cal-btn').forEach(btn=>{btn.addEventListener('click',()=>{calendarMonth=+btn.dataset.month;renderCalendar();$('eventDetail').innerHTML='<h4>Select a highlighted day</h4><div class="event-topic">Session details will appear here.</div>';});});
+  $('calendarGrid').addEventListener('click',e=>{const day=e.target.closest('.day.event');if(day)showCalendarDay(+day.dataset.day);});
+
+  document.addEventListener('click',e=>{
+    const toggle=e.target.closest('.accordion-toggle');
+    if(!toggle) return;
+    const card=toggle.closest('.card');
+    const isOpen=card.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',isOpen?'true':'false');
+  });
+
+
+
+
+  function escapeHtml(s){
+    return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  }
+
+  function allMistakes(){
+    const out=[];
+    Object.entries(state.examData||{}).forEach(([exam,e])=>{
+      (e.mistakes||[]).forEach((text,index)=>out.push({exam,text,index}));
+    });
+    return out;
+  }
+
+  function examPercentByName(name){
+    const e=getExamState(name);
+    return e.score && e.max ? Math.round((+e.score/+e.max)*100) : null;
+  }
+
+  function chapterWeakness(i){
+    const cp=chapterPct(state.chapterData[i]);
+    const related=examsForMode().filter(n=>n.toLowerCase().includes(String(i+1)) || n.toLowerCase().includes(CHAPTERS[i].toLowerCase()));
+    const scores=related.map(examPercentByName).filter(v=>v!==null);
+    const avg=scores.length ? scores.reduce((a,b)=>a+b,0)/scores.length : null;
+    if(avg!==null && avg<70) return ['Weak','weak'];
+    if(cp<50) return ['Weak','weak'];
+    if((avg!==null && avg<85) || cp<100) return ['Needs Revision','revise'];
+    return ['Strong','strong'];
+  }
+
+  function renderIntelligence(){
+    const grid=$('weaknessGrid');
+    if(grid){
+      grid.innerHTML=CHAPTERS.map((name,i)=>{
+        const [label,cls]=chapterWeakness(i);
+        return `<div class="weak-chip ${cls}" data-chapter-jump="${i}"><small>${label}</small><strong>${i+1}. ${name}</strong></div>`;
+      }).join('');
+    }
+
+    const chapterAvg=Math.round(state.chapterData.reduce((s,c)=>s+chapterPct(c),0)/CHAPTERS.length);
+    const activeExams=examsForMode();
+    const scored=activeExams.map(n=>examPercentByName(n)).filter(v=>v!==null);
+    const examAvg=scored.length?Math.round(scored.reduce((a,b)=>a+b,0)/scored.length):0;
+    const revisionTotal=state.chapterData.reduce((s,c)=>s+(c.revisions||[]).filter(Boolean).length,0);
+    const revisionPct=Math.round(revisionTotal/(CHAPTERS.length*3)*100);
+    const readiness=Math.round(chapterAvg*.45+examAvg*.35+revisionPct*.20);
+
+    $('readinessScore').textContent=readiness+'%';
+    $('readinessRing').style.setProperty('--ready',readiness*3.6+'deg');
+    $('readyChapters').textContent=chapterAvg+'%';
+    $('readyExams').textContent=examAvg+'%';
+    $('readyRevision').textContent=revisionPct+'%';
+    $('readyStatus').textContent=readiness>=85?'Trial Ready 🔥':readiness>=65?'Almost There':readiness>=40?'Building':'Start Strong';
+
+    const mistakes=allMistakes();
+    $('mistakesCountTag').textContent=mistakes.length+' Mistake'+(mistakes.length===1?'':'s');
+    $('todayMistakesLabel').textContent=mistakes.length ? mistakes.length+' saved mistake'+(mistakes.length===1?'':'s')+' to fix' : 'No saved mistakes yet';
+    $('todayMistakesBtn').disabled=!mistakes.length;
+    $('mistakesMasterList').innerHTML=mistakes.length
+      ? mistakes.map(m=>`<div class="mistake-master-item"><small>${escapeHtml(m.exam)}</small>${escapeHtml(m.text)}</div>`).join('')
+      : '<div class="sub">Your bank is empty. Add mistakes from any exam and they will appear here.</div>';
+
+    renderScoreRoad(scored);
+  }
+
+  function renderScoreRoad(scored){
+    const isEST=state.mode==='EST';
+    const marks=isEST?[500,600,700,750,800]:[20,25,30,33,36];
+    const max=isEST?800:36;
+    const min=isEST?0:0;
+    const rawBest=(examsForMode().map(n=>getExamState(n)).filter(e=>e.score).map(e=>+e.score));
+    let best=rawBest.length?Math.max(...rawBest):0;
+    if(!isEST && best>36){
+      const pct=scored.length?Math.max(...scored):0;
+      best=Math.round(pct/100*36);
+    }
+    if(isEST && best>800){
+      const pct=scored.length?Math.max(...scored):0;
+      best=Math.round(pct/100*800);
+    }
+    const pos=Math.max(0,Math.min(100,(best-min)/(max-min)*100));
+    $('road3dTitle').textContent=isEST?'Road to 800':'Road to 36';
+    $('roadBestScore').textContent=best||'—';
+    $('roadFill').style.width=pos+'%';
+    $('roadCar').style.left=pos+'%';
+    document.querySelectorAll('.road-marker,.road-label').forEach(x=>x.remove());
+    const line=$('roadLine');
+    marks.forEach(mark=>{
+      const p=(mark-min)/(max-min)*100;
+      const marker=document.createElement('div'); marker.className='road-marker'+(best>=mark?' hit':''); marker.style.left=p+'%';
+      const label=document.createElement('div'); label.className='road-label'; label.style.left=p+'%'; label.textContent=mark;
+      line.appendChild(marker); line.appendChild(label);
+    });
+  }
+
+  function openAndScrollToCard(type,index){
+    if(index<0) return;
+    const id = type==='chapter' ? `chapter-card-${index}` : `exam-card-${index}`;
+    const card = document.getElementById(id);
+    if(!card) return;
+    card.classList.add('open');
+    const toggle=card.querySelector('.accordion-toggle');
+    if(toggle) toggle.setAttribute('aria-expanded','true');
+    card.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+
+  $('goChapterBtn').addEventListener('click',()=>{
+    openAndScrollToCard('chapter',+$('goChapterBtn').dataset.index);
+  });
+
+  $('goExamBtn').addEventListener('click',()=>{
+    openAndScrollToCard('exam',+$('goExamBtn').dataset.index);
+  });
+
+
+  document.addEventListener('click',e=>{
+    const add=e.target.closest('.add-mistake');
+    if(add){
+      const exam=add.dataset.exam;
+      const input=document.querySelector(`.mistake-input[data-exam="${CSS.escape(exam)}"]`);
+      const text=(input?.value||'').trim();
+      if(text){
+        const st=getExamState(exam);
+        st.mistakes.push(text);
+        render();
+      }
+      return;
+    }
+    const rem=e.target.closest('.remove-mistake');
+    if(rem){
+      const st=getExamState(rem.dataset.exam);
+      st.mistakes.splice(+rem.dataset.mi,1);
+      render();
+      return;
+    }
+    const weak=e.target.closest('[data-chapter-jump]');
+    if(weak){
+      openAndScrollToCard('chapter',+weak.dataset.chapterJump);
+    }
+  });
+
+  $('todayChapterBtn').addEventListener('click',()=>openAndScrollToCard('chapter',+$('goChapterBtn').dataset.index));
+  $('todayExamBtn').addEventListener('click',()=>openAndScrollToCard('exam',+$('goExamBtn').dataset.index));
+  $('todayMistakesBtn').addEventListener('click',()=>document.getElementById('mistakes').scrollIntoView({behavior:'smooth',block:'start'}));
+
+  const revealObserver = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+  const navLinks=[...document.querySelectorAll('.nav-link')];
+  const sections=[...document.querySelectorAll('[data-section]')];
+  const sectionObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+entry.target.id));
+      }
+    });
+  },{rootMargin:'-35% 0px -55% 0px',threshold:0});
+  sections.forEach(s=>sectionObserver.observe(s));
+
+  document.querySelectorAll('[data-tilt]').forEach(card=>{
+    card.addEventListener('pointermove',e=>{
+      if(window.matchMedia('(hover:hover)').matches){
+        const r=card.getBoundingClientRect();
+        const x=(e.clientX-r.left)/r.width-.5;
+        const y=(e.clientY-r.top)/r.height-.5;
+        card.style.transform=`perspective(900px) rotateX(${(-y*5).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-3px)`;
+      }
+    });
+    card.addEventListener('pointerleave',()=>card.style.transform='');
+  });
+
+  render();
+})();
+</script>
+</body>
